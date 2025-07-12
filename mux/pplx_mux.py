@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
 import httpx
 import os
 from typing import List, Dict, Any, AsyncIterator
@@ -12,6 +13,11 @@ class TrybBalansowania(str, Enum):
     DUAL = "dual"
 
 aplikacja = FastAPI(title="Multiplexer API Perplexity")
+
+
+class HealthCheck(BaseModel):
+    status: str
+    mode: str
 
 class MuxPerplexity:
     def __init__(self) -> None:
@@ -55,9 +61,9 @@ async def strumien_odpowiedzi(resp: httpx.Response) -> AsyncIterator[bytes]:
     async for kawalek in resp.aiter_bytes():
         yield kawalek
 
-@aplikacja.get("/health")
-async def sprawdz_zdrowie() -> Dict[str, Any]:
-    return {"status": "healthy", "mode": mux.tryb}
+@aplikacja.get("/health", response_model=HealthCheck)
+async def sprawdz_zdrowie() -> HealthCheck:
+    return HealthCheck(status="ok", mode=os.getenv("MODE", "round"))
 
 @aplikacja.post("/chat/completions")
 async def proxy_czat(request: Request):
