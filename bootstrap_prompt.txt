@@ -1,1 +1,19 @@
+TokenMaster, tryb FULL-AUTO bootstrap:
+1. Zapytaj mnie interaktywnie o:
+   • PPLX_KEY_A
+   • PPLX_KEY_B
+   • wybrane MODE {round|failover|dual}  (domyślnie round)
+2. Wygeneruj strukturę:
+   .
+   ├─ mux/                 # proxy FastAPI+Docker
+   │  ├─ pplx_mux.py
+   │  ├─ docker-compose.yml
+   │  ├─ Dockerfile
+   │  └─ .env.template
+   └─ .codex/config.toml   # MCP wpis na http://localhost:8000
+3. Uzupełnij .env z podanymi kluczami, a MODE zapisz w .env.
+4. Uruchom w tle `docker compose up -d` (sandbox bypass).
+5. Zweryfikuj zdrowie endpointu GET /health.
+6. Jeżeli OK → zakomituj, tag v-mux-boot; jeśli błąd → wypisz diagnostykę i zaproponuj poprawkę. 
+Rozmowę kontynuuj tylko w języku polskim; zero placeholderów, zero TODO.
 
