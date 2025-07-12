@@ -1,0 +1,5 @@
+name = "pplx-mux"
+main = "src/index.js"
+compatibility_date = "2025-07-12"
+[vars]
+DEFAULT_MODEL = "sonar-pro"
