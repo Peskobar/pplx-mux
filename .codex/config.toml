@@ -1,0 +1,9 @@
+[mcp]
+servers = [
+    { name = "perplexity-mux", command = "curl", args = ["-X", "POST", "http://localhost:8000/chat/completions"], env = {} }
+]
+
+[proxy]
+endpoint = "http://localhost:8000"
+health_check = "/health"
+timeout = 30

@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  pplx-mux:
+    build: .
+    container_name: pplx-multiplexer
+    ports:
+      - "8000:8000"
+    environment:
+      - PPLX_KEY_A=${PPLX_KEY_A}
+      - PPLX_KEY_B=${PPLX_KEY_B}
+      - MODE=${MODE}
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
