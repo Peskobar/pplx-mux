@@ -1,0 +1,23 @@
+# Workflow GitHub Actions: Deploy Cloudflare Worker
+name: Deploy Cloudflare Worker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout kodu
+        uses: actions/checkout@v4
+
+      - name: Deploy do Cloudflare Workers
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+        env:
+          PPLX_KEY_A: ${{ secrets.PPLX_KEY_A }}
+          PPLX_KEY_B: ${{ secrets.PPLX_KEY_B }}
