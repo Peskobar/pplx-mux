@@ -1,21 +1,15 @@
-# Workflow GitHub Actions: Deploy Cloudflare Worker
-name: Deploy Cloudflare Worker
-
+name: Wdrożenie do Cloudflare Workers
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout kodu
-        uses: actions/checkout@v4
-
-      - name: Deploy do Cloudflare Workers
-        uses: cloudflare/wrangler-action@2.0.0
+      - uses: actions/checkout@v4
+      - name: Wdrożenie Workera
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
         env:
